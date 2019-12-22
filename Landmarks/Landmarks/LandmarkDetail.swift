@@ -1,31 +1,30 @@
-//
-//  LandmarkDetail.swift
-//  Landmarks
-//
-//  Created by Adam Chehadi on 12/21/19.
-//  Copyright © 2019 Adam Chehadi. All rights reserved.
-//
+/*
+See LICENSE folder for this sample’s licensing information.
+
+Abstract:
+A view showing the details for a landmark.
+*/
 
 import SwiftUI
 
 struct LandmarkDetail: View {
     var landmark: Landmark
-    
+
     var body: some View {
         VStack {
             MapView(coordinate: landmark.locationCoordinate)
                 .edgesIgnoringSafeArea(.top)
                 .frame(height: 300)
-            
+
             CircleImage(image: landmark.image)
-                .offset(y: -130)
+                .offset(x: 0, y: -130)
                 .padding(.bottom, -130)
-            
+
             VStack(alignment: .leading) {
                 Text(landmark.name)
                     .font(.title)
-                
-                HStack {
+
+                HStack(alignment: .top) {
                     Text(landmark.park)
                         .font(.subheadline)
                     Spacer()
@@ -34,10 +33,10 @@ struct LandmarkDetail: View {
                 }
             }
             .padding()
-            
+
             Spacer()
         }
-        .navigationBarTitle(Text(landmark.name), displayMode: .inline)
+        .navigationBarTitle(Text(verbatim: landmark.name), displayMode: .inline)
     }
 }
 
