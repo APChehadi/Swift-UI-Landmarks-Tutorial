@@ -8,14 +8,21 @@ A view showing a list of landmarks.
 import SwiftUI
 
 struct LandmarkList: View {
-    @State var showFavoritesOnly = false
+    @State var showFavoritesOnly = true
+    @EnvironmentObject var userData: UserData
     
     var body: some View {
         NavigationView {
-            List(landmarkData) { landmark in
-                if !self.showFavoritesOnly || landmark.isFavorite {
-                    NavigationLink(destination: LandmarkDetail(landmark: landmark)) {
-                        LandmarkRow(landmark: landmark)
+            List {
+                Toggle(isOn: $userData.showFavoritesOnly) {
+                    Text("Favorites Only")
+                }
+                
+                ForEach(userData.landmarks) { landmark in
+                    if !self.userData.showFavoritesOnly || landmark.isFavorite {
+                        NavigationLink(destination: LandmarkDetail(landmark: landmark)) {
+                            LandmarkRow(landmark: landmark)
+                        }
                     }
                 }
             }
@@ -27,5 +34,6 @@ struct LandmarkList: View {
 struct LandmarkList_Previews: PreviewProvider {
     static var previews: some View {
         LandmarkList()
+        .environmentObject(UserData())
     }
 }
