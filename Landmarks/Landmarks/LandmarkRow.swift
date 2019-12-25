@@ -12,30 +12,38 @@ struct LandmarkRow: View {
     let landmark: Landmark
     
     var body: some View {
-        HStack {
+        VStack {
             landmark.image
                 .resizable()
-                .frame(width: 50, height: 50)
+                .frame(width: 300, height: 400)
+                .cornerRadius(40)
+                .shadow(radius: 20)
             
-            Text(landmark.name)
+            .padding(.bottom, 12)
             
-            Spacer()
-            
-            if landmark.isFavorite {
-                Image(systemName: "star.fill")
-                    .imageScale(.medium)
-                    .foregroundColor(.yellow)
+            HStack {
+                Text(landmark.name)
+                
+                Spacer()
+                
+                if landmark.isFavorite {
+                    Image(systemName: "star.fill")
+                        .imageScale(.medium)
+                        .foregroundColor(.yellow)
+                }
             }
+            .padding()
         }
     }
 }
 
 struct LandmarkRow_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            LandmarkRow(landmark: landmarkData[0])
-            LandmarkRow(landmark: landmarkData[1])
-        }
-        .previewLayout(.fixed(width: 300, height: 70))
+        LandmarkRow(landmark: landmarkData[0])
+//        Group {
+//            LandmarkRow(landmark: landmarkData[0])
+//            LandmarkRow(landmark: landmarkData[1])
+//        }
+//        .previewLayout(.fixed(width: 300, height: 70))
     }
 }
